@@ -104,6 +104,14 @@ void APlayerCharacter::Move(const FInputActionValue& InputValue)
 void APlayerCharacter::Look(const FInputActionValue& InputValue)
 {
 	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Look"));
+
+	FVector2D InputVector = InputValue.Get<FVector2D>();
+
+	if (IsValid(Controller))
+	{
+		AddControllerYawInput(InputVector.X);
+		AddControllerPitchInput(InputVector.Y);
+	}
 }
 
 void APlayerCharacter::Jump()
