@@ -14,4 +14,10 @@ class SUMMERPROJ_API ABaseGameState : public AGameStateBase
 {
 	GENERATED_BODY()
 	
+public:
+	ABaseGameState();
+	virtual ~ABaseGameState() = default;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 TestCount;
 };
