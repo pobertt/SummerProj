@@ -13,5 +13,6 @@ UCLASS()
 class SUMMERPROJ_API ASummerProjGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+
+
 };
