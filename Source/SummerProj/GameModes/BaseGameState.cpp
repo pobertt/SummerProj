@@ -2,7 +2,8 @@
 
 #include "BaseGameState.h"
 
-ABaseGameState::ABaseGameState() : TestCount(500)
+ABaseGameState::ABaseGameState() : 
+	TestCount(500)
 {
 
 }

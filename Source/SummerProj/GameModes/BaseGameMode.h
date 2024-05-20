@@ -17,4 +17,16 @@ class SUMMERPROJ_API ABaseGameMode : public AGameModeBase
 public:
 	ABaseGameMode();
 	virtual ~ABaseGameMode() = default;
+
+	/* Return the number of the test count in the game */
+	UFUNCTION(BlueprintPure, Category = "Test")
+		virtual int32 GetTestCount() const;
+
+	UFUNCTION(BlueprintCallable, Category = "Test")
+		virtual void SetTestCount(int32 newTestCount);
+
+	virtual void StartPlay();
+
+	UFUNCTION(BlueprintNativeEvent, Category = "Test", DisplayName = "Start Play")
+		void StartPlayEvent();
 };

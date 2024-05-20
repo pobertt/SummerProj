@@ -16,14 +16,15 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	/*
 	_CameraComponent = CreateDefaultSubobject<UCameraComponent>("Camera");
+	_SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
+
+	_SpringArmComponent->SetupAttachment(_CameraComponent);
 	_CameraComponent->SetupAttachment(RootComponent);
 
-	_SpringArmComponent = CreateDefaultSubobject<USpringArmComponent>("SpringArm");
-	_SpringArmComponent->SetupAttachment(_CameraComponent);
-	
-	//Was RootComponent for (FPS) and below was for fps cam
 	_CameraComponent->bUsePawnControlRotation = true;
+	*/
 }
 
 // Called when the game starts or when spawned
@@ -66,14 +67,18 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 		Input->BindAction(JumpAction, ETriggerEvent::Started, this, &APlayerCharacter::Jump);
 
 		Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Look);
+
+		Input->BindAction(PrimaryInput, ETriggerEvent::Triggered, this, &APlayerCharacter::PrimaryAction);
+
+		Input->BindAction(SprintAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Sprint);
+
+		Input->BindAction(CrouchAction, ETriggerEvent::Triggered, this, &APlayerCharacter::Crouch);
 	}
 }
 
 
 void APlayerCharacter::Move(const FInputActionValue& InputValue)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Move"));
-
 	FVector2D InputVector = InputValue.Get<FVector2D>();
 
 	if (IsValid(Controller))
@@ -103,8 +108,6 @@ void APlayerCharacter::Move(const FInputActionValue& InputValue)
 
 void APlayerCharacter::Look(const FInputActionValue& InputValue)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 15.0f, FColor::Blue, TEXT("Look"));
-
 	FVector2D InputVector = InputValue.Get<FVector2D>();
 
 	if (IsValid(Controller))
